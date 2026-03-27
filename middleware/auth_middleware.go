@@ -2,9 +2,9 @@ package middleware
 
 import (
 	"context"
-	"net/http"
-
+	sharedContextUtil "github.com/ReilEgor/FinScale-shared/pkg/contextutil"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 const headerUserID = "X-User-ID"
@@ -17,7 +17,7 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		ctx := context.WithValue(c.Request.Context(), UserIDKey, userID)
+		ctx := context.WithValue(c.Request.Context(), sharedContextUtil.UserIDKey, userID)
 		c.Request = c.Request.WithContext(ctx)
 
 		c.Next()
